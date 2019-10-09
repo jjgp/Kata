@@ -1,5 +1,5 @@
 import XCTest
-@testable import leetcode
+@testable import LeetCode
 
 final class BullsAndCowsTests: XCTestCase {
     func testGetHint() {
