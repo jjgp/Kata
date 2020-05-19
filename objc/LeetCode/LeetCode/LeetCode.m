@@ -58,11 +58,13 @@ static inline NSArray<NSNumber *> * twoSum(NSArray<NSNumber *> *nums, NSNumber *
 static inline NSArray<NSNumber *> * productExceptSelf(NSArray<NSNumber *> *nums) {
     NSMutableArray<NSNumber *> *result = [nums mutableCopy];
     result[0] = @1;
+
+    // Computes left products i.e. [1, 1, 2, 6]
     for (int i = 1; i < result.count; ++i) {
         result[i] = @([result[i - 1] integerValue] * [nums[i - 1] integerValue]);
     }
 
-    NSInteger rightProduct = 1;
+    NSInteger rightProduct = 1; // right product would be [24, 12, 4, 1]
     for (unsigned long i = result.count - 1; i != NSUIntegerMax; --i) {
         result[i] = @(result[i].integerValue * rightProduct);
         rightProduct *= nums[i].integerValue;
