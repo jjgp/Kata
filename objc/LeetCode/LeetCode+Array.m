@@ -309,7 +309,21 @@
  */
 
 - (NSNumber *)maxProduct:(NSArray<NSNumber *> *)nums {
-    return @0;
+    int globalMax = nums[0].intValue;
+    for (int i = 1, localMax = globalMax, localMin = globalMax; i < nums.count; ++i) {
+        int num = nums[i].intValue;
+        if (num < 0) {
+            localMax ^= localMin;
+            localMin ^= localMax;
+            localMax ^= localMin;
+        }
+
+        localMax = MAX(num, localMax * num);
+        localMin = MIN(num, localMin * num);
+        globalMax = MAX(globalMax, localMax);
+    }
+
+    return @(globalMax);
 }
 
 - (void)testMaxProduct {
