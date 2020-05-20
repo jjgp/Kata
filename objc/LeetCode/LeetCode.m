@@ -231,6 +231,18 @@
  Output: true
  */
 - (BOOL)containsDuplicate:(NSArray<NSNumber *> *)nums {
+    if (nums.count < 2) {
+        return NO;
+    }
+
+    NSMutableSet *seen = [[NSMutableSet alloc] init];
+    for (NSNumber *num in nums) {
+        if ([seen containsObject:num]) {
+            return YES;
+        } else {
+            [seen addObject:num];
+        }
+    }
     return NO;
 }
 
