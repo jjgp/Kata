@@ -117,7 +117,7 @@
     NSMutableArray *stack = [[NSMutableArray alloc] init];
     for (int i = 0; i < len; ++i) {
         unichar parentheses = buffer[i];
-        if ([stack count] == 0) {
+        if (parentheses == '(' || parentheses == '{' || parentheses == '[') {
             [stack addObject:[NSString stringWithFormat:@"%C", parentheses]];
         }
         else if (parentheses == ')' && [stack.lastObject isEqualToString:@"("]) {
@@ -128,6 +128,9 @@
         }
         else if (parentheses == ']' && [stack.lastObject isEqualToString:@"["]) {
             [stack removeLastObject];
+        }
+        else {
+            return NO;
         }
     }
     return [stack count] == 0;
