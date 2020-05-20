@@ -22,7 +22,7 @@
 ///
 /// Because nums[0] + nums[1] = 2 + 7 = 9,
 /// return [0, 1].
-static inline NSArray<NSNumber *> * twoSum(NSArray<NSNumber *> *nums, NSNumber *target) {
+- (NSArray<NSNumber *> *)twoSumNumbers:(NSArray<NSNumber *> *)nums andTarget:(NSNumber *)target {
     NSMutableDictionary *numsDict = [[NSMutableDictionary alloc] init];
     for (int i = 0; i < nums.count; ++i) {
         NSNumber *num = nums[i];
@@ -38,7 +38,7 @@ static inline NSArray<NSNumber *> * twoSum(NSArray<NSNumber *> *nums, NSNumber *
 }
 
 - (void)testTwoSum {
-    XCTAssertEqualObjects((@[@0, @1]), twoSum(@[@2, @7, @11, @15], @9));
+    XCTAssertEqualObjects((@[@0, @1]), [self twoSumNumbers:(@[@2, @7, @11, @15]) andTarget: @9]);
 }
 
 /// Given an array nums of n integers where n > 1,  return an array output such that output[i] is equal to the product
@@ -55,7 +55,7 @@ static inline NSArray<NSNumber *> * twoSum(NSArray<NSNumber *> *nums, NSNumber *
 /// Follow up:
 /// Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose
 /// of space complexity analysis.)
-static inline NSArray<NSNumber *> * productExceptSelf(NSArray<NSNumber *> *nums) {
+- (NSArray<NSNumber *> *)productExceptSelf:(NSArray<NSNumber *> *)nums {
     NSMutableArray<NSNumber *> *result = [nums mutableCopy];
     result[0] = @1;
 
@@ -74,7 +74,7 @@ static inline NSArray<NSNumber *> * productExceptSelf(NSArray<NSNumber *> *nums)
 }
 
 - (void)testProductExceptSelf {
-    XCTAssertEqualObjects((@[@24, @12, @8, @6]), productExceptSelf(@[@1, @2, @3, @4]));
+    XCTAssertEqualObjects((@[@24, @12, @8, @6]), [self productExceptSelf:(@[@1, @2, @3, @4])]);
 }
 
 @end
