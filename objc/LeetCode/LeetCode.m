@@ -15,6 +15,8 @@
 
 @implementation LeetCode (Array)
 
+// MARK: - 1. Two Sum
+
 /// Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 /// You may assume that each input would have exactly one solution, and you may not use the same element twice.
 ///
@@ -37,9 +39,11 @@
     return @[];
 }
 
-- (void)testTwoSum {
+- (void)testTwoSumAndTarget {
     XCTAssertEqualObjects((@[@0, @1]), [self twoSumNumbers:(@[@2, @7, @11, @15]) andTarget: @9]);
 }
+
+// MARK: - 238. Product of Array Except Self
 
 /// Given an array nums of n integers where n > 1,  return an array output such that output[i] is equal to the product
 /// of all the elements of nums except nums[i].
@@ -75,6 +79,45 @@
 
 - (void)testProductExceptSelf {
     XCTAssertEqualObjects((@[@24, @12, @8, @6]), [self productExceptSelf:(@[@1, @2, @3, @4])]);
+}
+
+// MARK: - 20. Valid Parentheses
+
+/// Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+/// An input string is valid if:
+///   1. Open brackets must be closed by the same type of brackets.
+///   2. Open brackets must be closed in the correct order.
+/// Note that an empty string is also considered valid.
+///
+/// Example 1:
+///   Input: "()"
+///   Output: true
+///
+/// Example 2:
+///   Input: "()[]{}"
+///   Output: true
+///
+/// Example 3:
+///   Input: "(]"
+///   Output: false
+///
+/// Example 4:
+///   Input: "([)]"
+///   Output: false
+///
+/// Example 5:
+///   Input: "{[]}"
+///   Output: true
+- (bool)isValid:(NSString *)s {
+    return false;
+}
+
+- (void)testIsValid {
+    XCTAssertTrue([self isValid:@"()"]);
+    XCTAssertTrue([self isValid:@"()[]{}"]);
+    XCTAssertFalse([self isValid:@"(]"]);
+    XCTAssertFalse([self isValid:@"([)]"]);
+    XCTAssertFalse([self isValid:@"{[]}"]);
 }
 
 @end
