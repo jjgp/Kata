@@ -109,7 +109,28 @@
 ///   Input: "{[]}"
 ///   Output: true
 - (bool)isValid:(NSString *)s {
-    return false;
+    // See https://stackoverflow.com/a/23397279
+    NSUInteger len = [s length];
+    unichar buffer[len + 1];
+    [s getCharacters:buffer range:NSMakeRange(0, len)];
+
+    NSMutableArray *stack = [[NSMutableArray alloc] init];
+    for (int i = 0; i < len; ++i) {
+        unichar parentheses = buffer[i];
+        if ([stack count] == 0) {
+            [stack addObject:[NSString stringWithFormat:@"%C", parentheses]];
+        }
+        else if (parentheses == ')' && [stack.lastObject isEqualToString:@"("]) {
+            [stack removeLastObject];
+        }
+        else if (parentheses == '}' && [stack.lastObject isEqualToString:@"{"]) {
+            [stack removeLastObject];
+        }
+        else if (parentheses == ']' && [stack.lastObject isEqualToString:@"["]) {
+            [stack removeLastObject];
+        }
+    }
+    return [stack count] == 0;
 }
 
 - (void)testIsValid {
@@ -117,7 +138,7 @@
     XCTAssertTrue([self isValid:@"()[]{}"]);
     XCTAssertFalse([self isValid:@"(]"]);
     XCTAssertFalse([self isValid:@"([)]"]);
-    XCTAssertFalse([self isValid:@"{[]}"]);
+    XCTAssertTrue([self isValid:@"{[]}"]);
 }
 
 @end
