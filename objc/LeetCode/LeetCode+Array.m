@@ -169,14 +169,14 @@
         return NO;
     }
 
-    NSUInteger len = [s length];
+    NSUInteger len = s.length;
     unichar bufferS[len + 1];
     [s getCharacters:bufferS range:NSMakeRange(0, len)];
 
     unichar bufferT[len + 1];
     [t getCharacters:bufferT range:NSMakeRange(0, len)];
 
-    int counts[26];
+    int counts[26] = {0};
     for (int i = 0; i < len; ++i) {
         counts[bufferS[i] - 'a']++;
         counts[bufferT[i] - 'a']--;
@@ -329,6 +329,71 @@
 - (void)testMaxProduct {
     XCTAssertEqualObjects(@6, [self maxProduct:(@[@2, @3, @(-2), @4])]);
     XCTAssertEqualObjects(@0, [self maxProduct:(@[@(-2), @0, @(-1)])]);
+}
+
+// MARK: - 49. Group Anagrams
+
+/**
+ Given an array of strings, group anagrams together.
+
+ Example:
+ Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+ Output:
+ [
+   ["ate","eat","tea"],
+   ["nat","tan"],
+   ["bat"]
+ ]
+
+ Note:
+ - All inputs will be in lowercase.
+ - The order of your output does not matter.
+ */
+- (NSArray<NSArray<NSString *> *> *)groupAnagrams:(NSArray<NSString *> *)strs {
+    NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> *groups = [[NSMutableDictionary alloc] init];
+    for (NSString *str in strs) {
+        NSString *key = anagramKey(str);
+        if (groups[key] == nil) {
+            groups[key] = [[NSMutableArray alloc] initWithObjects:str, nil];
+        } else {
+            [groups[key] addObject:str];
+        }
+    }
+    return groups.allValues;
+}
+
+static inline NSString * anagramKey(NSString *str) {
+    NSUInteger len = str.length;
+    unichar buffer[len + 1];
+    [str getCharacters:buffer range:NSMakeRange(0, len)];
+
+    int counts[26] = {0};
+    for (int i = 0; i < len; ++i) {
+        counts[buffer[i] - 'a']++;
+    }
+
+    NSMutableString *key = [[NSMutableString alloc] init];
+    for (int i = 0; i < 26; ++i) {
+        int count = counts[i];
+        [key appendString:[NSString stringWithFormat:@"%d", count]];
+    }
+
+    return [key copy];
+}
+
+- (void)testGroupAnagrams {
+    NSArray *input = @[@"eat", @"tea", @"tan", @"ate", @"nat", @"bat"];
+    NSArray *output = @[
+        @[@"ate", @"eat", @"tea"],
+        @[@"nat", @"tan"],
+        @[@"bat"]
+    ];
+    
+    NSArray *result = [self groupAnagrams:input];
+    [result[0] sortUsingSelector:@selector(caseInsensitiveCompare:)];
+    [result[1] sortUsingSelector:@selector(caseInsensitiveCompare:)];
+
+    XCTAssertEqualObjects(output, result);
 }
 
 @end
