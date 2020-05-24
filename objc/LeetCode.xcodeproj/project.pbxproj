@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		B71303D92475AF4D000BE7BE /* LeetCode+Array.m in Sources */ = {isa = PBXBuildFile; fileRef = B71303D82475AF4D000BE7BE /* LeetCode+Array.m */; };
+		B739CC46247B1B0C004089BF /* LeetCode+Design.m in Sources */ = {isa = PBXBuildFile; fileRef = B739CC45247B1B0C004089BF /* LeetCode+Design.m */; };
 		B7923DF32473FD3D00683885 /* LeetCode.m in Sources */ = {isa = PBXBuildFile; fileRef = B7923DF22473FD3D00683885 /* LeetCode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B71303D82475AF4D000BE7BE /* LeetCode+Array.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "LeetCode+Array.m"; sourceTree = "<group>"; };
 		B71303DA2475AFAB000BE7BE /* LeetCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeetCode.h; sourceTree = "<group>"; };
+		B739CC45247B1B0C004089BF /* LeetCode+Design.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "LeetCode+Design.m"; sourceTree = "<group>"; };
 		B7923DEF2473FD3D00683885 /* LeetCode.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeetCode.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7923DF22473FD3D00683885 /* LeetCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeetCode.m; sourceTree = "<group>"; };
 		B7923DF42473FD3D00683885 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +53,7 @@
 			children = (
 				B71303DA2475AFAB000BE7BE /* LeetCode.h */,
 				B7923DF22473FD3D00683885 /* LeetCode.m */,
+				B739CC45247B1B0C004089BF /* LeetCode+Design.m */,
 				B71303D82475AF4D000BE7BE /* LeetCode+Array.m */,
 				B7923DF42473FD3D00683885 /* Info.plist */,
 			);
@@ -124,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B71303D92475AF4D000BE7BE /* LeetCode+Array.m in Sources */,
+				B739CC46247B1B0C004089BF /* LeetCode+Design.m in Sources */,
 				B7923DF32473FD3D00683885 /* LeetCode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
