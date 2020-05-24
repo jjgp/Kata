@@ -359,7 +359,7 @@
             [groups[key] addObject:str];
         }
     }
-    return groups.allValues;
+    return groups.allValues; // This is technically returning mutable arrays!
 }
 
 static inline NSString * anagramKey(NSString *str) {
@@ -390,10 +390,11 @@ static inline NSString * anagramKey(NSString *str) {
     ];
     
     NSArray *result = [self groupAnagrams:input];
-    [result[0] sortUsingSelector:@selector(caseInsensitiveCompare:)];
-    [result[1] sortUsingSelector:@selector(caseInsensitiveCompare:)];
-
-    XCTAssertEqualObjects(output, result);
+    XCTAssertEqualObjects(output, (@[
+        [result[0] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)],
+        [result[1] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)],
+        result[2]
+                                   ]));
 }
 
 // MARK: - 33. Search in Rotated Sorted Array
@@ -460,6 +461,67 @@ static inline NSString * anagramKey(NSString *str) {
 - (void)testSearchNumsForTarget {
     XCTAssertEqual(4, [self searchNums:(@[@4, @5, @6, @7, @0, @1, @2]) forTarget:0]);
     XCTAssertEqual(-1, [self searchNums:(@[@4, @5, @6, @7, @0, @1, @2]) forTarget:3]);
+}
+
+// MARK: - 15. 3Sum
+
+/**
+ Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+ Note:
+
+ The solution set must not contain duplicate triplets.
+
+ Example:
+
+ Given array nums = [-1, 0, 1, 2, -1, -4],
+
+ A solution set is:
+ [
+   [-1, 0, 1],
+   [-1, -1, 2]
+ ]
+ */
+- (NSArray<NSArray<NSNumber *> *> *)threeSum:(NSArray<NSNumber *> *)nums {
+    if (nums.count < 3) { return @[]; }
+    nums = [nums sortedArrayUsingSelector:@selector(compare:)];
+    NSMutableArray *threeSum = [[NSMutableArray alloc] init];
+
+    for (int i = 0; i < nums.count - 2; ++i) {
+        int a = nums[i].intValue;
+        if (a > 0) { break; }
+        if (i != 0 && a == nums[i - 1].intValue) { continue; }
+
+        int j = i + 1, k = (int)nums.count - 1;
+        while (j < k) {
+            int b = nums[j].intValue;
+            int c = nums[k].intValue;
+            int bc = b + c;
+            if (a + bc == 0) {
+                [threeSum insertObject:@[@(a), @(b), @(c)] atIndex:0];
+                do {
+                    ++j;
+                } while (b == nums[j].intValue);
+                do {
+                    --k;
+                } while (c == nums[k].intValue);
+            } else if (-a > bc) {
+                ++j;
+            } else {
+                --k;
+            }
+        }
+    }
+
+    return [threeSum copy];
+}
+
+- (void)testThreeSum {
+    NSArray *expected = @[
+        @[@(-1), @0, @1],
+        @[@(-1), @(-1), @2]
+    ];
+    XCTAssertEqualObjects(expected, [self threeSum:(@[@(-1), @0, @1, @2, @(-1), @(-4)])]);
 }
 
 @end
