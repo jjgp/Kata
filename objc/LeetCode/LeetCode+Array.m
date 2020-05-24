@@ -426,7 +426,7 @@ static inline NSString * anagramKey(NSString *str) {
 }
 
 - (int)searchNums:(NSArray<NSNumber *> *)nums
-        forTarget:(NSInteger)target
+        forTarget:(int)target
          withLeft:(int)left
          andRight:(int)right {
     if (right < left) {
@@ -438,7 +438,7 @@ static inline NSString * anagramKey(NSString *str) {
         return mid;
     }
 
-    if (nums[left] <= nums[mid]) {
+    if (nums[left].intValue <= nums[mid].intValue) {
         if (target >= nums[left].intValue && target < mid) {
             right = mid - 1;
         } else {
