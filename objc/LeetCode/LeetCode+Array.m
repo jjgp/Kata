@@ -439,7 +439,7 @@ static inline NSString * anagramKey(NSString *str) {
     }
 
     if (nums[left] <= nums[mid]) {
-        if (target >= nums[right].intValue && target < mid) {
+        if (target >= nums[left].intValue && target < mid) {
             right = mid - 1;
         } else {
             left = mid + 1;
