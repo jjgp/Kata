@@ -396,5 +396,71 @@ static inline NSString * anagramKey(NSString *str) {
     XCTAssertEqualObjects(output, result);
 }
 
+// MARK: - 33. Search in Rotated Sorted Array
+
+/**
+ Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+
+ (i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]).
+
+ You are given a target value to search. If found in the array return its index, otherwise return -1.
+
+ You may assume no duplicate exists in the array.
+
+ Your algorithm's runtime complexity must be in the order of O(log n).
+
+ Example 1:
+ Input: nums = [4,5,6,7,0,1,2], target = 0
+ Output: 4
+
+ Example 2:
+ Input: nums = [4,5,6,7,0,1,2], target = 3
+ Output: -1
+ */
+- (int)searchNums:(NSArray<NSNumber *> *)nums forTarget:(int)target {
+    return [self searchNums:nums
+                  forTarget:target
+                   withLeft:0
+                   andRight:(int)nums.count - 1];
+}
+
+- (int)searchNums:(NSArray<NSNumber *> *)nums
+        forTarget:(NSInteger)target
+         withLeft:(int)left
+         andRight:(int)right {
+    if (right < left) {
+        return -1;
+    }
+
+    int mid = left + (right - left) / 2;
+    if (nums[mid].intValue == target) {
+        return mid;
+    }
+
+    if (nums[left] <= nums[mid]) {
+        if (target >= nums[right].intValue && target < mid) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    } else {
+        if (target <= nums[right].intValue && target > mid) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return [self searchNums:nums
+                  forTarget:target
+                   withLeft:left
+                   andRight:right];
+}
+
+- (void)testSearchNumsForTarget {
+    XCTAssertEqual(4, [self searchNums:(@[@4, @5, @6, @7, @0, @1, @2]) forTarget:0]);
+    XCTAssertEqual(-1, [self searchNums:(@[@4, @5, @6, @7, @0, @1, @2]) forTarget:3]);
+}
+
 @end
 
