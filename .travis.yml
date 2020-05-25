@@ -20,3 +20,12 @@ matrix:
           ONLY_ACTIVE_ARCH=NO
           test
           | xcpretty -c
+
+    - language: swift
+      os: osx
+      osx_image: xcode11.5
+      before_script:
+        - cd swift
+      script:
+        - set -o pipefail
+        - swift test
