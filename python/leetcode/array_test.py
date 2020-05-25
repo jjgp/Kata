@@ -56,7 +56,17 @@ class TestArray(unittest.TestCase):
     """
 
     def max_sub_array(self, nums: List[int]) -> int:
-        pass
+        currSum = maxSum = nums[0]
+        for num in nums[1:]:
+            currSum = max(currSum + num, num)
+            maxSum = max(maxSum, currSum)
+        return maxSum
+
+    def test_max_sub_array(self):
+        self.assertEqual(
+            self.max_sub_array([-2, 1, -3, 4, -1, 2, 1, -5, 4]),
+            6
+        )
 
 
 if __name__ == '__main__':
