@@ -29,9 +29,16 @@ class TestDataStructures(unittest.TestCase):
 
     def test_reverse_list(self):
         expected = list(range(1, 6))
-        head = reduce(lambda x, y: ListNode(x, y), reversed(expected))
-        result = self.reverse_list(head)
-        result = [node.val for node in result]
+        head = expected[:]
+        head.insert(0, None)
+        head = reduce(lambda x, y: ListNode(y, x), head)
+        head = self.reverse_list(head)
+
+        result = []
+        while head:
+            result.append(head.val)
+            head = head.next
+
         self.assertEqual(
             expected,
             result
