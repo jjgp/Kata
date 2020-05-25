@@ -23,7 +23,13 @@ class TestArray(unittest.TestCase):
     """
 
     def merge_intervals(self, intervals: List[List[int]]) -> List[List[int]]:
-        return []
+        merged = []
+        for interval in sorted(intervals):
+            if merged and merged[-1][1] >= interval[0]:
+                merged[-1][1] = max(merged[-1][1], interval[1])
+            else:
+                merged.append(interval)
+        return merged
 
     def test_merge_intervals(self):
         self.assertEqual(
