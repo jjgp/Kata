@@ -4,3 +4,4 @@
 /Packages
 swift/*.xcodeproj
 xcuserdata/
+*.pyc
