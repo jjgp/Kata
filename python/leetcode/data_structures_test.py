@@ -25,7 +25,21 @@ class TestDataStructures(unittest.TestCase):
     """
 
     def reverse_list(self, head: ListNode) -> ListNode:
-        return head
+        new_head = None
+        while head:
+            node = head
+            head = head.next
+            node.next = new_head
+            new_head = node
+        return new_head
+        # return self.reverse_list_recursive(None, head)
+    
+    def reverse_list_recursive(self, previous: ListNode, current: ListNode) -> ListNode:
+        if not current:
+            return previous
+        next_node = current.next
+        current.next = previous
+        return self.reverse_list_recursive(current, next_node)
 
     def test_reverse_list(self):
         expected = list(range(1, 6))
